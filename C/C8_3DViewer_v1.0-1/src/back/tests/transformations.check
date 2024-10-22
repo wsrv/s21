@@ -1,0 +1,210 @@
+#test transformations_1
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1, -1, -1, 1, -1, 1, -1, -1, 1, -1, -1, -1,
+                           1, 1,  -1, 1, 1,  1, -1, 1,  1, -1, 1,  -1};
+  shiftObj(&outputdata, 0, 'x');
+  shiftObj(&outputdata, 0, 'y');
+  shiftObj(&outputdata, 0, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_2
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1.02, -1,    -1,    1.02, -1,   1,     -0.98, -1,
+                           1,    -0.98, -1,    -1,   1.02, 1,     -1,    1.02,
+                           1,    1,     -0.98, 1,    1,    -0.98, 1,     -1};
+  shiftObj(&outputdata, 2, 'x');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_3
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {0.98, -1,    -1,    0.98, -1,   1,     -1.02, -1,
+                           1,    -1.02, -1,    -1,   0.98, 1,     -1,    0.98,
+                           1,    1,     -1.02, 1,    1,    -1.02, 1,     -1};
+  shiftObj(&outputdata, -2, 'x');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_4
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1,    -1.02, -1,    1,    -1.02, 1,    -1,   -1.02,
+                           1,    -1,    -1.02, -1,   1,     0.98, -1,   1,
+                           0.98, 1,     -1,    0.98, 1,     -1,   0.98, -1};
+  shiftObj(&outputdata, -2, 'y');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_5
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1,    -0.98, -1,    1,    -0.98, 1,    -1,   -0.98,
+                           1,    -1,    -0.98, -1,   1,     1.02, -1,   1,
+                           1.02, 1,     -1,    1.02, 1,     -1,   1.02, -1};
+  shiftObj(&outputdata, 2, 'y');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_6
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1,    -1,   -0.98, 1,     -1,   1.02, -1,    -1,
+                           1.02, -1,   -1,    -0.98, 1,    1,    -0.98, 1,
+                           1,    1.02, -1,    1,     1.02, -1,   1,     -0.98};
+  shiftObj(&outputdata, 2, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_7
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1,    -1,   -1.02, 1,     -1,   0.98, -1,    -1,
+                           0.98, -1,   -1,    -1.02, 1,    1,    -1.02, 1,
+                           1,    0.98, -1,    1,     0.98, -1,   1,     -1.02};
+  shiftObj(&outputdata, -2, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_8
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {1, -1, -1, 1, -1, 1, -1, -1, 1, -1, -1, -1,
+                           1, 1,  -1, 1, 1,  1, -1, 1,  1, -1, 1,  -1};
+  rotateObj(&outputdata, 0, 'x');
+  rotateObj(&outputdata, 0, 'y');
+  rotateObj(&outputdata, 0, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_9
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {
+      1.207107,  1.207107,  -0.292893, 1.500000,  -0.500000, 0.707107,
+      0.500000,  -1.500000, -0.707107, 0.207107,  0.207107,  -1.707107,
+      -0.500000, 1.499999,  0.707107,  -0.207107, -0.207108, 1.707107,
+      -1.207107, -1.207107, 0.292893,  -1.500000, 0.500000,  -0.707107};
+  rotateObj(&outputdata, 45, 'x');
+  rotateObj(&outputdata, 45, 'y');
+  rotateObj(&outputdata, 45, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-5);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_10
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {-0.751019, -0.933329, -1.250947, 1.166751, -1.071491,
+                           -0.700428, 0.615560,  -1.061870, 1.222096, -1.302209,
+                           -0.923708, 0.671576,  -0.615559, 1.061870, -1.222095,
+                           1.302210,  0.923708,  -0.671575, 0.751019, 0.933329,
+                           1.250947,  -1.166751, 1.071491,  0.700428};
+  rotateObj(&outputdata, 3, 'x');
+  rotateObj(&outputdata, 286, 'y');
+  rotateObj(&outputdata, 359, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-5);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_11
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {-3.955094, -2.216643, -6.229735, 5.633754, -2.907456,
+                           -3.477139, 2.877800,  -2.859351, 6.135478, -6.711047,
+                           -2.168538, 3.382882,  -3.277795, 7.759351, -6.085476,
+                           6.311051,  7.068538,  -3.332876, 3.555094, 7.116643,
+                           6.279735,  -6.033754, 7.807456,  3.527139};
+  rotateObj(&outputdata, 3, 'x');
+  rotateObj(&outputdata, 286, 'y');
+  rotateObj(&outputdata, 359, 'z');
+  shiftObj(&outputdata, -4, 'x');
+  shiftObj(&outputdata, 49, 'y');
+  shiftObj(&outputdata, 0.5, 'z');
+  scalingObj(&outputdata, 5);
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-5);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_12
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  double originArr2[24] = {
+      0.077670,  0.205778,  -0.136212, 0.350246,  -0.044456, 0.015727,
+      0.165081,  -0.352623, -0.159622, -0.107495, -0.102389, -0.311560,
+      -0.149081, 0.156623,  0.189622,  0.123495,  -0.093611, 0.341560,
+      -0.061670, -0.401778, 0.166212,  -0.334246, -0.151544, 0.014273};
+  rotateObj(&outputdata, 65, 'x');
+  rotateObj(&outputdata, 26, 'y');
+  rotateObj(&outputdata, 59, 'z');
+  shiftObj(&outputdata, 4, 'x');
+  shiftObj(&outputdata, -49, 'y');
+  shiftObj(&outputdata, 7.5, 'z');
+  scalingObj(&outputdata, 0.2);
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-5);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
+
+#test transformations_13
+dataNur outputdata;
+char *filename = "front/tests/cube.obj";
+if (!readFile(filename, &outputdata)) {
+  nurlanization(&outputdata);
+  double originArr2[24] = {0.5, -0.5, -0.5, 0.5,  -0.5, 0.5,  -0.5, -0.5,
+                           0.5, -0.5, -0.5, -0.5, 0.5,  0.5,  -0.5, 0.5,
+                           0.5, 0.5,  -0.5, 0.5,  0.5,  -0.5, 0.5,  -0.5};
+  shiftObj(&outputdata, 0, 'x');
+  shiftObj(&outputdata, 0, 'y');
+  shiftObj(&outputdata, 0, 'z');
+  for (int i = 0; i < outputdata.count_of_vertexes; i++)
+    ck_assert_double_eq_tol(outputdata.vertexesArr[i], originArr2[i], 1e-7);
+  free(outputdata.vertexesArr);
+  free(outputdata.facetsArr);
+}
