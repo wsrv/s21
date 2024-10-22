@@ -1,0 +1,71 @@
+#test negate1
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+
+  decimal.bits[0] = 0b11111111111111111111111111111111;
+  decimal.bits[1] = 0b11111111111111111111111111111111;
+  decimal.bits[2] = 0b11111111111111111111111111111111;
+  decimal.bits[3] = 0b00000000000000000000000000000000;
+  decimal_check.bits[0] = 0b11111111111111111111111111111111;
+  decimal_check.bits[1] = 0b11111111111111111111111111111111;
+  decimal_check.bits[2] = 0b11111111111111111111111111111111;
+  decimal_check.bits[3] = 0b10000000000000000000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_negate(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test negate2
+  s21_decimal decimal;
+  decimal.bits[0] = 0b11111111111111111111111111111111;
+  decimal.bits[1] = 0b11111111111111111111111111111111;
+  decimal.bits[2] = 0b11111111111111111111111111111111;
+  decimal.bits[3] = 0b00000000011111110000000000000000;
+  s21_decimal *result = NULL;
+  ck_assert_int_eq(1, s21_negate(decimal, result));
+
+
+#test negate3
+  s21_decimal decimal;
+
+  decimal.bits[0] = 0b11111111111111111111111111111111;
+  decimal.bits[1] = 0b11111111111111111111111111111111;
+  decimal.bits[2] = 0b11111111111111111111111111111111;
+  decimal.bits[3] = 0b00000000000111110000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(1, s21_negate(decimal, &result));
+
+
+#test negate4
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  decimal.bits[0] = 0b00000000000000000000000000000000;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000000000;
+  decimal.bits[3] = 0b10000000000000000000000000000000;
+  decimal_check.bits[0] = 0b00000000000000000000000000000000;
+  decimal_check.bits[1] = 0b00000000000000000000000000000000;
+  decimal_check.bits[2] = 0b00000000000000000000000000000000;
+  decimal_check.bits[3] = 0b00000000000000000000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_negate(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test negate5
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  decimal.bits[0] = 0b00000010000000010000000000000100;
+  decimal.bits[1] = 0b00000000100000001100000000000000;
+  decimal.bits[2] = 0b00000000110000000001000000000000;
+  decimal.bits[3] = 0b10000000000000000000100000000000;
+  decimal_check.bits[0] = 0b00000010000000010000000000000100;
+  decimal_check.bits[1] = 0b00000000100000001100000000000000;
+  decimal_check.bits[2] = 0b00000000110000000001000000000000;
+  decimal_check.bits[3] = 0b00000000000000000000100000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_negate(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);

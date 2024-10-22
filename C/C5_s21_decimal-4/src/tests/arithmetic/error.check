@@ -1,0 +1,40 @@
+#test inf
+  s21_decimal src1, src2, result;
+  src1.bits[0] = 0b11111111111111111111111111111111;
+  src1.bits[1] = 0b11111111111111111111111111111111;
+  src1.bits[2] = 0b11111111111111111111111111111111;
+  src1.bits[3] = 0b10000000000000000000000000000000;
+  src2.bits[0] = 0b11111111111111111111111111111111;
+  src2.bits[1] = 0b11111111111111111111111111111111;
+  src2.bits[2] = 0b11111111111111111111111111111111;
+  src2.bits[3] = 0b00000000000000000000000000000000;
+
+  int err = s21_sub(src1, src2, &result);
+  ck_assert_int_eq(1, err);
+
+  src1.bits[3] = 0b00000000000000000000000000000000;
+  err = s21_add(src1, src2, &result);
+  ck_assert_int_eq(1, err);
+
+  err = s21_mul(src1, src2, &result);
+  ck_assert_int_eq(1, err);
+
+
+#test min
+  s21_decimal src1, src2, result;
+  src1.bits[0] = 0b00000000000000000000000000000000;
+  src1.bits[1] = 0b00000000000000000000000000000000;
+  src1.bits[2] = 0b00000000000000000000000000000001;
+  src1.bits[3] = 0b00000111111111110000000000000000;
+  src2.bits[0] = 0b00000000000000000000000000000001;
+  src2.bits[1] = 0b00000000000000000000000000000000;
+  src2.bits[2] = 0b00000000000000000000000000000000;
+  src2.bits[3] = 0b00000000000000000000000000000000;
+  int err = s21_sub(src1, src2, &result);
+  ck_assert_int_eq(2, err);
+
+  err = s21_add(src1, src2, &result);
+  ck_assert_int_eq(2, err);
+
+  err = s21_mul(src1, src2, &result);
+  ck_assert_int_eq(2, err);

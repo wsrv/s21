@@ -1,0 +1,293 @@
+#test nurlan_float_to_dec_1
+  float src = 13.99999;
+  s21_decimal result, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000101010101110010111111;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000001010000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test nurlan_float_to_dec_2
+  float src = 5;
+  s21_decimal result, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000000000000000000000101;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000000000000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test nurlan_float_to_dec_3
+  float src = 125;
+  s21_decimal result, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000000000000000001111101;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000000000000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test nurlan_float_to_dec_4
+  float src = -0.5;
+  s21_decimal result, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000000000000000000000101;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b10000000000000010000000000000000;
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin_error, my_error);
+
+ #test nurlan_float_to_dec_5
+   float src = 0.123;
+   s21_decimal result, origin;
+   int my_error = s21_from_float_to_decimal(src, &result);
+   int origin_error = 0;
+   origin.bits[0] = 0b00000000000000000000000001111011;
+   origin.bits[1] = 0b00000000000000000000000000000000;
+   origin.bits[2] = 0b00000000000000000000000000000000;
+   origin.bits[3] = 0b00000000000000110000000000000000;
+   ck_assert_int_eq(origin.bits[0], result.bits[0]);
+   ck_assert_int_eq(origin.bits[1], result.bits[1]);
+   ck_assert_int_eq(origin.bits[2], result.bits[2]);
+   ck_assert_int_eq(origin.bits[3], result.bits[3]);
+   ck_assert_int_eq(origin_error, my_error);
+
+
+#test nurlan_float_to_dec_6
+   float src = 0.000000000000000000000000000001;
+   s21_decimal result, origin;
+   int my_error = s21_from_float_to_decimal(src, &result);
+   int origin_error = 1;
+   origin.bits[0] = 0b00000000000000000000000000000000;
+   origin.bits[1] = 0b00000000000000000000000000000000;
+   origin.bits[2] = 0b00000000000000000000000000000000;
+   origin.bits[3] = 0b00000000000000000000000000000000;
+   ck_assert_int_eq(origin.bits[0], result.bits[0]);
+   ck_assert_int_eq(origin.bits[1], result.bits[1]);
+   ck_assert_int_eq(origin.bits[2], result.bits[2]);
+   ck_assert_int_eq(origin.bits[3], result.bits[3]);
+   ck_assert_int_eq(origin_error, my_error);
+
+#test nurlan_float_to_dec_7 
+   float src = 0.000000000000000000000000000001;
+   s21_decimal result, origin;
+   int my_error = s21_from_float_to_decimal(src, &result);
+   int origin_error = 1;
+   origin.bits[0] = 0b00000000000000000000000000000000;
+   origin.bits[1] = 0b00000000000000000000000000000000;
+   origin.bits[2] = 0b00000000000000000000000000000000;
+   origin.bits[3] = 0b00000000000000000000000000000000;
+   ck_assert_int_eq(origin.bits[0], result.bits[0]);
+   ck_assert_int_eq(origin.bits[1], result.bits[1]);
+   ck_assert_int_eq(origin.bits[2], result.bits[2]);
+   ck_assert_int_eq(origin.bits[3], result.bits[3]);
+   ck_assert_int_eq(origin_error, my_error);
+
+
+
+#test nurlan_float_to_dec_9
+   float src = -0.000000001;
+   s21_decimal result, origin;
+   int my_error = s21_from_float_to_decimal(src, &result);
+   int origin_error = 0;
+   origin.bits[0] = 0b00000000000000000000000000000000;
+   origin.bits[1] = 0b00000000000000000000000000000000;
+   origin.bits[2] = 0b00000000000000000000000000000000;
+   origin.bits[3] = 0b10000000000000000000000000000000;
+   ck_assert_int_eq(origin.bits[0], result.bits[0]);
+   ck_assert_int_eq(origin.bits[1], result.bits[1]);
+   ck_assert_int_eq(origin.bits[2], result.bits[2]);
+   ck_assert_int_eq(origin.bits[3], result.bits[3]);
+   ck_assert_int_eq(origin_error, my_error);
+
+#test nurlan_float_to_dec_10
+   float src = -0.18362745;
+   s21_decimal result, origin;
+   int my_error = s21_from_float_to_decimal(src, &result);
+   int origin_error = 0;
+   origin.bits[0] = 0b00000000000111000000010011110011;
+   origin.bits[1] = 0b00000000000000000000000000000000;
+   origin.bits[2] = 0b00000000000000000000000000000000;
+   origin.bits[3] = 0b10000000000001110000000000000000;
+   ck_assert_int_eq(origin.bits[0], result.bits[0]);
+   ck_assert_int_eq(origin.bits[1], result.bits[1]);
+   ck_assert_int_eq(origin.bits[2], result.bits[2]);
+   ck_assert_int_eq(origin.bits[3], result.bits[3]);
+   ck_assert_int_eq(origin_error, my_error);
+
+
+#test nurlan_float_to_dec_11
+   float src = -45.18362746;
+   s21_decimal result, origin;
+   int my_error = s21_from_float_to_decimal(src, &result);
+   int origin_error = 0;
+   origin.bits[0] = 0b00000000010001001111000111011011; // было 0b00011010111011100111100101110011; (451836275) стало = 4518363
+   origin.bits[1] = 0b00000000000000000000000000000000;
+   origin.bits[2] = 0b00000000000000000000000000000000;
+   origin.bits[3] = 0b10000000000001010000000000000000;
+   ck_assert_int_eq(origin.bits[0], result.bits[0]);
+   ck_assert_int_eq(origin.bits[1], result.bits[1]);
+   ck_assert_int_eq(origin.bits[2], result.bits[2]);
+   ck_assert_int_eq(origin.bits[3], result.bits[3]);
+   ck_assert_int_eq(origin_error, my_error);
+
+// //_____________________________________________________________________________________________________________________
+
+#test float_to_dec_1
+  float src = 1;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000000000000000000000001;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000000000000000000000000;
+
+  //printf("sign = %d\n", get_sign(result));
+  //printf("scale = %d\n", get_scale(result));
+  //print(result);
+
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_2
+  float src = -3;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000000000000000000000011;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b10000000000000000000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_3
+  float src = 5.289365;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000010100001011010110010101;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000001100000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_4
+  float src = 0.2364752;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000001001000001010101010000;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000001110000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_10
+  float src = -1.988766;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000111100101100010011110;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b10000000000001100000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_11
+  float src = 1.928318;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000111010110110001111110;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000001100000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test s21_float_to_dec_31
+  float src = 0.1111111;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000100001111010001000111;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000001110000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_36
+  float src = 0;
+  s21_decimal result = {{0}}, origin;
+  int my_error = s21_from_float_to_decimal(src, &result);
+  int origin_error = 0;
+  origin.bits[0] = 0b00000000000000000000000000000000;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000000000000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);
+  ck_assert_int_eq(origin_error, my_error);
+
+#test float_to_dec_41
+  float src = 3.14E-38;
+  s21_decimal result = {{0}}, origin;
+  s21_from_float_to_decimal(src, &result);
+  origin.bits[0] = 0b00000000000000000000000000000000;
+  origin.bits[1] = 0b00000000000000000000000000000000;
+  origin.bits[2] = 0b00000000000000000000000000000000;
+  origin.bits[3] = 0b00000000000000000000000000000000;
+  ck_assert_int_eq(origin.bits[3], result.bits[3]);
+  ck_assert_int_eq(origin.bits[2], result.bits[2]);
+  ck_assert_int_eq(origin.bits[1], result.bits[1]);
+  ck_assert_int_eq(origin.bits[0], result.bits[0]);

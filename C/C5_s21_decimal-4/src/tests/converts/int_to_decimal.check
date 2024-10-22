@@ -1,0 +1,65 @@
+#test int_dec1
+  s21_decimal dst, dst_check;
+  int src = 0;
+  dst_check.bits[0] = 0b00000000000000000000000000000000;
+  dst_check.bits[1] = 0b00000000000000000000000000000000;
+  dst_check.bits[2] = 0b00000000000000000000000000000000;
+  dst_check.bits[3] = 0b00000000000000000000000000000000;
+  int result = s21_from_int_to_decimal(src,  &dst);
+  int origin = 0;
+  ck_assert_int_eq(origin, result);
+  for (int i = 0; i < 4; i++)
+  ck_assert_int_eq(dst_check.bits[i], dst.bits[i]);
+
+#test int_dec2
+  s21_decimal dst, dst_check;
+  int src = -123456;
+  dst_check.bits[0] = 0b00000000000000011110001001000000;
+  dst_check.bits[1] = 0b00000000000000000000000000000000;
+  dst_check.bits[2] = 0b00000000000000000000000000000000;
+  dst_check.bits[3] = 0b10000000000000000000000000000000;
+  int result = s21_from_int_to_decimal(src,  &dst);
+  int origin = 0;
+  ck_assert_int_eq(origin, result);
+  for (int i = 0; i < 4; i++)
+  ck_assert_int_eq(dst_check.bits[i], dst.bits[i]);
+
+#test int_dec3
+  s21_decimal dst, dst_check;
+  int src = 2147483647;
+  dst_check.bits[0] = 0b01111111111111111111111111111111;
+  dst_check.bits[1] = 0b00000000000000000000000000000000;
+  dst_check.bits[2] = 0b00000000000000000000000000000000;
+  dst_check.bits[3] = 0b00000000000000000000000000000000;
+  int result = s21_from_int_to_decimal(src,  &dst);
+  int origin = 0;
+  ck_assert_int_eq(origin, result);
+  for (int i = 0; i < 4; i++)
+  ck_assert_int_eq(dst_check.bits[i], dst.bits[i]);
+
+
+#test int_dec4
+  s21_decimal dst, dst_check;
+  int src = -2147483648;
+  dst_check.bits[0] = 0b10000000000000000000000000000000;
+  dst_check.bits[1] = 0b00000000000000000000000000000000;
+  dst_check.bits[2] = 0b00000000000000000000000000000000;
+  dst_check.bits[3] = 0b10000000000000000000000000000000;
+  int result = s21_from_int_to_decimal(src,  &dst);
+  int origin = 0;
+  ck_assert_int_eq(origin, result);
+  for (int i = 0; i < 4; i++)
+  ck_assert_int_eq(dst_check.bits[i], dst.bits[i]);
+
+#test int_dec5
+  s21_decimal dst, dst_check;
+  int src = 123456;
+  dst_check.bits[0] = 0b00000000000000011110001001000000;
+  dst_check.bits[1] = 0b00000000000000000000000000000000;
+  dst_check.bits[2] = 0b00000000000000000000000000000000;
+  dst_check.bits[3] = 0b00000000000000000000000000000000;
+  int result = s21_from_int_to_decimal(src,  &dst);
+  int origin = 0;
+  ck_assert_int_eq(origin, result);
+  for (int i = 0; i < 4; i++)
+  ck_assert_int_eq(dst_check.bits[i], dst.bits[i]);

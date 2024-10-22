@@ -1,0 +1,150 @@
+#test dec_to_float_1
+  s21_decimal num;
+  num.bits[0] = 0b00000000000000000000000000010100;
+  num.bits[1] = 0b00000000000000000000000000000000;
+  num.bits[2] = 0b00000000000000000000000000000000;
+  num.bits[3] = 0b00000000000000100000000000000000;
+  float dst;
+  float origin = 0.2;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(0, err);
+  ck_assert_float_eq(origin, dst);
+
+#test dec_to_float_2
+  s21_decimal num;
+  num.bits[0] = 0b00000000000000000000000000001000;
+  num.bits[1] = 0b00000000000000000000000000000000;
+  num.bits[2] = 0b00000000000000000000000000000000;
+  num.bits[3] = 0b10000000000000100000000000000000;
+  float dst;
+  float origin = -0.08;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(0, err);
+  ck_assert_float_eq(origin, dst);
+
+
+#test dec_to_float_3
+  s21_decimal num;
+  num.bits[0] = 0b00000000000000000001100101111001;
+  num.bits[1] = 0b00000000000000000000000000000000;
+  num.bits[2] = 0b00000000000000000000000000000000;
+  num.bits[3] = 0b00000000000000000000000000000000;
+  float dst;
+  float origin = 6521;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(0, err);
+  ck_assert_float_eq(origin, dst);
+
+
+#test dec_to_float_4
+  s21_decimal num;
+  num.bits[0] = 0b01001100110100101000000111000101;
+  num.bits[1] = 0b00000000000000000000000000000010;
+  num.bits[2] = 0b00000000000000000000000000000000;
+  num.bits[3] = 0b10000000000000010000000000000000;
+  float dst;
+  float origin = -987879878.9;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(0, err);
+  ck_assert_float_eq(origin, dst);
+
+#test dec_to_float_5
+  s21_decimal num;
+  num.bits[0] = 0b11001010111000111111111111111111;
+  num.bits[1] = 0b10001010001110010000011100111010;
+  num.bits[2] = 0b00000000000000000000000000000000;
+  num.bits[3] = 0b00000000000000110000000000000000;
+   float dst;
+  float origin = 9959999999999999.999;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(0, err);
+  ck_assert_float_eq(origin, dst);
+
+#test dec_to_float_6
+  s21_decimal num;
+  num.bits[0] = 0b11111111111111111111111111111111;
+  num.bits[1] = 0b11111111111111111111111111111111;
+  num.bits[2] = 0b11111111111111111111111111111111;
+  num.bits[3] = 0b00000000111111110000000000000000;
+  float dst;
+  float origin = 0;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(1, err);
+  ck_assert_float_eq(origin, dst);
+
+#test dec_to_float_7
+  s21_decimal num;
+  num.bits[0] = 0b10101111010001111000100111010010;
+  num.bits[1] = 0b01101110000001111100110010011000;
+  num.bits[2] = 0b10110000001111010100100110000111;
+  num.bits[3] = 0b10000000000111000000000000000000;
+  float dst;
+  float origin = -5.4543453434545454535265454546;
+  int err = s21_from_decimal_to_float(num, &dst);
+  ck_assert_int_eq(0, err);
+  ck_assert_float_eq(origin, dst);
+
+  //____________________________________________________________
+
+#test from_decimal_to_float_test1
+  s21_decimal value = {{123456789, 0, 0, 0}};
+  value.bits[3]+= 5<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+  ck_assert_float_eq(res, 1234.56789);
+
+#test from_decimal_to_float_test2
+  s21_decimal value = {{123456789, 0, 0, 0}};
+  value.bits[3] += 1<<31;
+  value.bits[3] += 5<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+  ck_assert_float_eq(res, -1234.56789);
+
+#test from_decimal_to_float_test3
+  s21_decimal value = {{123456789, 0, 0, 0}};
+  value.bits[3]+= 10<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+  ck_assert_float_eq(res, 0.0123456789);
+
+#test from_decimal_to_float_test4
+  s21_decimal value = {{0, 0, 0, 0}};
+  value.bits[3]+= 1<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+  ck_assert_float_eq(res, 0.);
+
+#test from_decimal_to_float_test5
+  s21_decimal value = {{UINT_MAX, UINT_MAX, UINT_MAX, 0}};
+  value.bits[3]+= 1<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+
+#test from_decimal_to_float_test6
+  s21_decimal value = {{UINT_MAX, UINT_MAX, UINT_MAX, 0}};
+  value.bits[3]+= 0<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+
+#test from_decimal_to_float_test7
+  s21_decimal value = {{UINT_MAX, UINT_MAX, UINT_MAX, 0}};
+  value.bits[3] += 1<<31;
+  value.bits[3]+= 0<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+
+#test from_decimal_to_float_test8
+  s21_decimal value = {{0, 1, 0, 0}};
+  value.bits[3]+= 5<<16;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+  ck_assert_float_eq(res, 42949.67296);
+
+  #test from_decimal_to_float_test9
+  s21_decimal value = {{0, 1, 0, 0}};
+  value.bits[3]+= 5<<16;
+  value.bits[3] += 1<<31;
+  float res = 0;
+  ck_assert_int_eq(s21_from_decimal_to_float(value, &res), 0);
+  ck_assert_float_eq(res, -42949.67296);

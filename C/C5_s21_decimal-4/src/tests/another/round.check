@@ -1,0 +1,105 @@
+#test round1
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  decimal.bits[0] = 0b00000000000000000000000000000000;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000000000;
+  decimal.bits[3] = 0b10000000000000000000000000000000;
+  decimal_check.bits[0] = 0b00000000000000000000000000000000;
+  decimal_check.bits[1] = 0b00000000000000000000000000000000;
+  decimal_check.bits[2] = 0b00000000000000000000000000000000;
+  decimal_check.bits[3] = 0b10000000000000000000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_round(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test round2
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  decimal.bits[0] = 0b00000000000000000000000000000000;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000000000;
+  decimal.bits[3] = 0b00000000000001110000000000000000;
+  decimal_check.bits[0] = 0b00000000000000000000000000000000;
+  decimal_check.bits[1] = 0b00000000000000000000000000000000;
+  decimal_check.bits[2] = 0b00000000000000000000000000000000;
+  decimal_check.bits[3] = 0b00000000000001110000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_round(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test round3
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  decimal.bits[0] = 0b00000000001110000000010000000100;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000000000;
+  decimal.bits[3] = 0b00000000000001110000000000000000;
+  decimal_check.bits[0] = 0b00000000000000000000000000000000;
+  decimal_check.bits[1] = 0b00000000000000000000000000000000;
+  decimal_check.bits[2] = 0b00000000000000000000000000000000;
+  decimal_check.bits[3] = 0b00000000000000000000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_round(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test round3_1
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  decimal.bits[0] = 0b00000000000000000000000000000101;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000000000;
+  decimal.bits[3] = 0b00000000000000010000000000000000;
+  decimal_check.bits[0] = 0b00000000000000000000000000000001;
+  decimal_check.bits[1] = 0b00000000000000000000000000000000;
+  decimal_check.bits[2] = 0b00000000000000000000000000000000;
+  decimal_check.bits[3] = 0b00000000000000000000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_round(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test round4
+  s21_decimal decimal;
+  s21_decimal decimal_check;
+  // 59029581035870565171.5
+  decimal.bits[0] = 0b00000000000000000000000000000011;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000100000;
+  decimal.bits[3] = 0b00000000000000010000000000000000;
+  // 59029581035870565172
+  decimal_check.bits[0] = 0b00110011001100110011001100110100;
+  decimal_check.bits[1] = 0b00110011001100110011001100110011;
+  decimal_check.bits[2] = 0b00000000000000000000000000000011;
+  decimal_check.bits[3] = 0b00000000000000000000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(0, s21_round(decimal, &result));
+  for (int i = 0; i < 4; i++)
+    ck_assert_int_eq(decimal_check.bits[i], result.bits[i]);
+
+
+#test round5
+  s21_decimal decimal;
+  decimal.bits[0] = 0b00000000000000000000000000000000;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000100000;
+  decimal.bits[3] = 0b10000000011111110000000000000000;
+  s21_decimal result = {{0, 0, 0, 0}};
+  ck_assert_int_eq(1, s21_round(decimal, &result));
+
+
+#test round6
+  s21_decimal decimal;
+  decimal.bits[0] = 0b00000000000000000000000000000000;
+  decimal.bits[1] = 0b00000000000000000000000000000000;
+  decimal.bits[2] = 0b00000000000000000000000000100000;
+  decimal.bits[3] = 0b10000000011111110000000000000000;
+  s21_decimal *result = NULL;
+  ck_assert_int_eq(1, s21_round(decimal, result));
